@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,15 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'department_id' => Department::where('name', 'Administração')->first()->id,
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+            'permissions' => json_encode(['create', 'edit', 'delete']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

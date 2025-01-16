@@ -17,7 +17,9 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'Administração',
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
