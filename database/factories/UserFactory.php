@@ -19,12 +19,12 @@ class UserFactory extends Factory
     {
         return [
             'department_id' => Department::where('name', 'Administração')->first()->id,
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
+            'name' => 'Administrador',
+            'email' => 'admin@rhmangnt.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
             'role' => 'admin',
-            'permissions' => json_encode(['create', 'edit', 'delete']),
+            'permissions' => json_encode(['admin']),
             'created_at' => now(),
             'updated_at' => now(),
         ];
