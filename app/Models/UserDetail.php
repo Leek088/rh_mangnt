@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserDetail extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserDetailFactory> */
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
