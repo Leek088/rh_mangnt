@@ -149,7 +149,6 @@ return [
         Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
-
     ],
 
 ];
