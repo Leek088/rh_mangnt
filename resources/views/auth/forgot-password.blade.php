@@ -1,7 +1,7 @@
 <x-layout-guest pageTitle="Recuperar Senha">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <!-- logo -->
                 <div class="text-center mb-5">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="200px">
