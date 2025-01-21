@@ -7,4 +7,5 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/', '/home');
     Route::view('/home', 'home')->name('home');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('user.profile');
+    Route::post('/user/update-password', [ProfileController::class, 'updatePassword'])->name('user.update.password');
 });
