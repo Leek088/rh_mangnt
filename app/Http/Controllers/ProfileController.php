@@ -39,4 +39,24 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success-change-password', 'Senha atualizada com sucesso!');
     }
+
+    public function updateData(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
+        ], [
+            'name.required' => 'O campo nome é obrigatório.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'O email deve ser um endereço de email válido.',
+            'email.unique' => 'O email já está em uso.',
+        ]);
+
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->back()->with('success-update-data', 'Dados atualizados com sucesso!');
+    }
 }
