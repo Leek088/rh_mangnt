@@ -1,6 +1,6 @@
 <div class="col-md-6">
     <div class="border p-5 shadow-sm">
-        <form action="{{ route('user.update.password') }}" method="post">
+        <form action="{{ route(name: 'user.update.password') }}" method="post">
             @csrf
             <h3 class="text-center">Trocar senha</h3>
             <div class="mb-3 mt-3">
@@ -29,9 +29,9 @@
                 <button type="submit" class="btn btn-primary">Trocar a senha</button>
             </div>
         </form>
-        @if (session('success-change-password'))
+        @if (session(key: 'success-change-password'))
             <div class="alert alert-success mt-3">
-                {{ session('success-change-password') }}
+                {{ session(key: 'success-change-password') }}
             </div>
         @endif
     </div>

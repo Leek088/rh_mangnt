@@ -3,10 +3,10 @@
         <div class="row justify-content-center">
             <div class="col-md-6 mb-5">
                 <div class="text-center mb-5">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="200px">
+                    <img src="{{ asset(path: 'assets/images/logo.png') }}" alt="Logo" width="200px">
                 </div>
                 <div class="card p-5">
-                    <form action="{{ route('password.update') }}" method="post">
+                    <form action="{{ route(name: 'password.update') }}" method="post">
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
                         <div class="mb-3">
@@ -32,7 +32,7 @@
                             @enderror
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('login') }}">Já sei a minha senha!</a>
+                            <a href="{{ route(name: 'login') }}">Já sei a minha senha!</a>
                             <button type="submit" class="btn btn-primary px-4">Definir Senha</button>
                         </div>
                     </form>

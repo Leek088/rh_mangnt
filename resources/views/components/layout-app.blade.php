@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        {{ env('APP_NAME') }}
+        {{ env(key: 'APP_NAME') }}
         @isset($pageTitle)
             - {{ $pageTitle }}
         @endisset
     </title>
     <!-- favicon -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset(path: 'assets/images/favicon.png') }}" type="image/png">
     <!-- resources -->
-    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'assets/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'assets/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'assets/bootstrap/bootstrap.min.css') }}">
     <!-- custom -->
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'assets/css/main.css') }}">
 </head>
 
 <body>
@@ -27,9 +27,9 @@
         {{ $slot }}
     </div>
     <!-- resources -->
-    <script src="{{ asset('assets/datatables/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset(path: 'assets/datatables/jquery.min.js') }}"></script>
+    <script src="{{ asset(path: 'assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset(path: 'assets/datatables/datatables.min.js') }}"></script>
 </body>
 
 </html>

@@ -1,11 +1,11 @@
 <div class="col-md-6">
     <div class="border p-5 shadow-sm">
-        <form action="{{ route('user.update.data') }}" method="post">
+        <form action="{{ route(name: 'user.update.data') }}" method="post">
             @csrf
             <h3>Atualizar dados</h3>
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Nome</label>
-                <input type="text" name="name" id="name" value="{{ old('name') ?? auth()->user()->name }}"
+                <input type="text" name="name" id="name" value="{{ old(key: 'name') ?? auth()->user()->name }}"
                     class="form-control @error('name') is-invalid @enderror">
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -23,9 +23,9 @@
                 <button type="submit" class="btn btn-primary">Atualizar dados</button>
             </div>
         </form>
-        @if (session('success-update-data'))
+        @if (session(key: 'success-update-data'))
             <div class="alert alert-success mt-3">
-                {{ session('success-update-data') }}
+                {{ session(key: 'success-update-data') }}
             </div>
         @endif
     </div>

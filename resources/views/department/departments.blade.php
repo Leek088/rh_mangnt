@@ -5,11 +5,12 @@
         @if ($departments->isEmpty())
             <div class="text-center my-5">
                 <p>Nenhum departamento encontrado.</p>
-                <a href="{{ route('department.new-department') }}" class="btn btn-primary">Criar um departamento</a>
+                <a href="{{ route(name: 'department.new-department') }}" class="btn btn-primary">Criar um departamento</a>
             </div>
         @else
             <div class="mb-3">
-                <a href="{{ route('department.new-department') }}" class="btn btn-primary">Crie um novo departamento</a>
+                <a href="{{ route(name: 'department.new-department') }}" class="btn btn-primary">Crie um novo
+                    departamento</a>
             </div>
             <table class="table w-50" id="table">
                 <thead class="table-dark">
