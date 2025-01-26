@@ -1,6 +1,6 @@
 <x-layout-app pageTitle="Perfil de usuário">
     <div class="w-100 p-4">
-        <h3>Perfil Usuário</h3>
+        <h3>Perfil do usuário</h3>
         <hr>
         <x-profile-user-data />
         <hr>

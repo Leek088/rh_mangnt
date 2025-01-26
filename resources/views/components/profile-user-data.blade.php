@@ -3,7 +3,7 @@
         <i class="fas fa-user me-3"></i>{{ auth()->user()->name }}
     </div>
     <div>
-        <i class="fas fa-user me-3"></i>{{ auth()->user()->role }}
+        <i class="fa-solid fa-circle-info me-3"></i>{{ auth()->user()->role }}
     </div>
     <div>
         <i class="fas fa-at me-3"></i>{{ auth()->user()->email }}
