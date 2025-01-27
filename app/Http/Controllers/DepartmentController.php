@@ -78,4 +78,30 @@ class DepartmentController extends Controller
 
         return redirect()->route('department.index');
     }
+
+    public function deleteDepartment(string $id): RedirectResponse
+    {
+        if (!Gate::allows('admin')) {
+            abort(403, 'Você não está autorizado a acessar essa página');
+        }
+
+        $id = Crypt::decryptString($id);
+        $department = Department::findOrFail(intval($id));
+        $department->delete();
+
+        return redirect()->route('department.index');
+    }
+
+    public function destroyDepartment(Request $request): RedirectResponse
+    {
+        if (!Gate::allows('admin')) {
+            abort(403, 'Você não está autorizado a acessar essa página');
+        }
+
+        $id = Crypt::decryptString($request->id);
+        $department = Department::findOrFail(intval($id));
+        $department->delete();
+
+        return redirect()->route('department.index');
+    }
 }

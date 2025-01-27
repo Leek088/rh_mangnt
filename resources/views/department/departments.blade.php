@@ -31,7 +31,8 @@
                                             <i class="fa-regular fa-pen-to-square me-2"></i>
                                             Editar
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-outline-danger">
+                                        <a href="{{ route('department.delete-department', ['id' => Crypt::encryptString($department->id)]) }}"
+                                            class="btn btn-sm btn-outline-danger">
                                             <i class="fa-regular fa-trash-can me-2"></i>
                                             Deletar
                                         </a>

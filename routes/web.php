@@ -20,5 +20,7 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/departments/store-department', 'storeDepartment')->name('department.store-department');
         Route::get('/departments/edit-department/{id}', 'editDepartment')->name('department.edit-department');
         Route::post('/departments/update-department', 'updateDepartment')->name('department.update-department');
+        Route::get('/departments/delete-department/{id}', 'editDepartment')->name('department.delete-department');
+        Route::get('/departments/delete-department-confirm/{id}', 'editDepartment')->name('department.delete-department-confirm');
     });
 });
