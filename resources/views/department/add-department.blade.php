@@ -6,7 +6,7 @@
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Nome do departamento</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}"
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}"
                     required placeholder="Digite o nome do departamento">
                 @error('name')
                     <div class="text-danger">{{ $message }}</div>

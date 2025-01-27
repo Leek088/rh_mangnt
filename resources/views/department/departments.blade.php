@@ -5,11 +5,11 @@
         @if ($departments->isEmpty())
             <div class="text-center my-5">
                 <p>Nenhum departamento encontrado.</p>
-                <a href="{{ route(name: 'department.new-department') }}" class="btn btn-primary">Criar um departamento</a>
+                <a href="{{ route('department.new-department') }}" class="btn btn-primary">Criar um departamento</a>
             </div>
         @else
             <div class="mb-3">
-                <a href="{{ route(name: 'department.new-department') }}" class="btn btn-primary">Crie um novo
+                <a href="{{ route('department.new-department') }}" class="btn btn-primary">Crie um novo
                     departamento</a>
             </div>
             <table class="table w-50" id="table">
@@ -26,7 +26,7 @@
                                     @if ($department->name == 'Administração')
                                         <i class="fa-solid fa-lock"></i>
                                     @else
-                                        <a href="{{ route(name: 'department.edit-department', parameters: ['id' => encrypt(value: $department->id)]) }}"
+                                        <a href="{{ route('department.edit-department', ['id' => Crypt::encryptString($department->id)]) }}"
                                             class="btn btn-sm btn-outline-info">
                                             <i class="fa-regular fa-pen-to-square me-2"></i>
                                             Editar
