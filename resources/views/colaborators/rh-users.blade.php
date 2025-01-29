@@ -5,33 +5,37 @@
         @if ($rhColaborators->isEmpty())
             <div class="text-center my-5">
                 <p>Nenhum colaborador encontrado.</p>
-                <a href="{{ route('department.new-department') }}" class="btn btn-primary">Criar um colaborador</a>
+                <a href="{{ route('') }}" class="btn btn-primary">Criar um colaborador</a>
             </div>
         @else
             <div class="mb-3">
-                <a href="{{ route('department.new-department') }}" class="btn btn-primary">Crie um novo
+                <a href="{{ route('') }}" class="btn btn-primary">Crie um novo
                     colaborador</a>
             </div>
             <table class="table w-50" id="table">
                 <thead class="table-dark">
-                    <th>Colaborador</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Permissão</th>
                     <th></th>
                 </thead>
                 <tbody>
                     @foreach ($rhColaborators as $colaborator)
                         <tr>
                             <td>{{ $colaborator->name }}</td>
+                            <td>{{ $colaborator->email }}</td>
+                            <td>{{ inplode(json_decode($colaborator->permission), ',') }}</td>
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
                                     @if ($colaborator->name == 'Administração')
                                         <i class="fa-solid fa-lock"></i>
                                     @else
-                                        <a href="{{ route('department.edit-department', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                        <a href="{{ route('', ['id' => Crypt::encryptString($colaborator->id)]) }}"
                                             class="btn btn-sm btn-outline-info">
                                             <i class="fa-regular fa-pen-to-square me-2"></i>
                                             Editar
                                         </a>
-                                        <a href="{{ route('department.delete-department', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                        <a href="{{ route('', ['id' => Crypt::encryptString($colaborator->id)]) }}"
                                             class="btn btn-sm btn-outline-danger">
                                             <i class="fa-regular fa-trash-can me-2"></i>
                                             Deletar

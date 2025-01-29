@@ -19,11 +19,11 @@ class ProfileController extends Controller
     public function updatePassword(Request $request): RedirectResponse
     {
         $request->validate(
-            rules: [
+            [
                 'current_password' => ['required'],
                 'new_password' => ['required', 'string', 'min:8', 'confirmed'],
             ],
-            params: [
+            [
                 'current_password.required' => 'O campo senha atual é obrigatório.',
                 'new_password.required' => 'O campo nova senha é obrigatório.',
                 'new_password.min' => 'A nova senha deve ter pelo menos 8 caracteres.',
@@ -46,15 +46,18 @@ class ProfileController extends Controller
 
     public function updateData(Request $request): RedirectResponse
     {
-        $request->validate(rules: [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
-        ], params: [
-            'name.required' => 'O campo nome é obrigatório.',
-            'email.required' => 'O campo email é obrigatório.',
-            'email.email' => 'O email deve ser um endereço de email válido.',
-            'email.unique' => 'O email já está em uso.',
-        ]);
+        $request->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
+            ],
+            [
+                'name.required' => 'O campo nome é obrigatório.',
+                'email.required' => 'O campo email é obrigatório.',
+                'email.email' => 'O email deve ser um endereço de email válido.',
+                'email.unique' => 'O email já está em uso.',
+            ]
+        );
 
         $user = Auth::user();
         $user->name = $request->name;

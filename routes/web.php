@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RhUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function (): void {
@@ -22,5 +23,15 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/departments/update-department', 'updateDepartment')->name('department.update-department');
         Route::get('/departments/delete-department/{id}', 'deleteDepartment')->name('department.delete-department');
         Route::get('/departments/destroy-department/{id}', 'destroyDepartment')->name('department.destroy-department');
+    });
+
+    Route::controller(RhUserController::class)->group(function (): void {
+        Route::get('/rh-users', 'index')->name('rh-user.index');
+        // Route::get('/rh-users/new-rh-user', 'newRhUser')->name('rh-user.new-rh-user');
+        // Route::post('/rh-users/store-rh-user', 'storeRhUser')->name('rh-user.store-rh-user');
+        // Route::get('/rh-users/edit-rh-user/{id}', 'editRhUser')->name('rh-user.edit-rh-user');
+        // Route::post('/rh-users/update-rh-user', 'updateRhUser')->name('rh-user.update-rh-user');
+        // Route::get('/rh-users/delete-rh-user/{id}', 'deleteRhUser')->name('rh-user.delete-rh-user');
+        // Route::get('/rh-users/destroy-rh-user/{id}', 'destroyRhUser')->name('rh-user.destroy-rh-user');
     });
 });
