@@ -5,11 +5,11 @@
         @if ($rhColaborators->isEmpty())
             <div class="text-center my-5">
                 <p>Nenhum colaborador encontrado.</p>
-                <a href="{{ route('') }}" class="btn btn-primary">Criar um colaborador</a>
+                <a href="{{ route('rh-user.new-rh-user') }}" class="btn btn-primary">Criar um colaborador</a>
             </div>
         @else
             <div class="mb-3">
-                <a href="{{ route('') }}" class="btn btn-primary">Crie um novo
+                <a href="{{ route('rh-user.new-rh-user') }}" class="btn btn-primary">Crie um novo
                     colaborador</a>
             </div>
             <table class="table w-50" id="table">

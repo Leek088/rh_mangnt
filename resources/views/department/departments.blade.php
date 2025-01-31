@@ -23,7 +23,7 @@
                             <td>{{ $department->name }}</td>
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
-                                    @if ($department->name == 'Administração')
+                                    @if ($department->name == 'Administração' || $department == 'Recursos Humanos')
                                         <i class="fa-solid fa-lock"></i>
                                     @else
                                         <a href="{{ route('department.edit-department', ['id' => Crypt::encryptString($department->id)]) }}"

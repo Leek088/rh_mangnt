@@ -27,8 +27,8 @@ Route::middleware('auth')->group(function (): void {
 
     Route::controller(RhUserController::class)->group(function (): void {
         Route::get('/rh-users', 'index')->name('rh-user.index');
-        // Route::get('/rh-users/new-rh-user', 'newRhUser')->name('rh-user.new-rh-user');
-        // Route::post('/rh-users/store-rh-user', 'storeRhUser')->name('rh-user.store-rh-user');
+        Route::get('/rh-users/new-rh-user', 'newRhUser')->name('rh-user.new-rh-user');
+        Route::post('/rh-users/store-rh-user', 'storeRhUser')->name('rh-user.store-rh-user');
         // Route::get('/rh-users/edit-rh-user/{id}', 'editRhUser')->name('rh-user.edit-rh-user');
         // Route::post('/rh-users/update-rh-user', 'updateRhUser')->name('rh-user.update-rh-user');
         // Route::get('/rh-users/delete-rh-user/{id}', 'deleteRhUser')->name('rh-user.delete-rh-user');

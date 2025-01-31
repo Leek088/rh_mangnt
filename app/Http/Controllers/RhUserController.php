@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -15,6 +16,15 @@ class RhUserController extends Controller
         $rhColaborators = User::where('role', 'rh')->get();
 
         return view('colaborators.rh-users', compact('rhColaborators'));
+    }
+
+    public function newRhUser(): View
+    {
+        $this->authorizeAdmin();
+
+        $departments = Department::all();
+
+        return view('colaborators.new-rh-user', compact('departments'));
     }
 
     private function authorizeAdmin(): void
