@@ -24,10 +24,10 @@
                         <tr>
                             <td>{{ $colaborator->name }}</td>
                             <td>{{ $colaborator->email }}</td>
-                            <td>{{ inplode(json_decode($colaborator->permission), ',') }}</td>
+                            <td>{{ implode(',', json_decode($colaborator->permission)) }}</td>
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
-                                    @if ($colaborator->name == 'Administração')
+                                    @if ($colaborator->name == 'Administração' || $department->name == 'Recursos Humanos')
                                         <i class="fa-solid fa-lock"></i>
                                     @else
                                         <a href="{{ route('', ['id' => Crypt::encryptString($colaborator->id)]) }}"
