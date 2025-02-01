@@ -12,7 +12,12 @@
                 <a href="{{ route('rh-user.new-rh-user') }}" class="btn btn-primary">Crie um novo
                     colaborador</a>
             </div>
-            <table class="table w-50" id="table">
+            @if (session('success'))
+                <div class="alert alert-success mt-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <table class="table w-60" id="table">
                 <thead class="table-dark">
                     <th>Nome</th>
                     <th>E-mail</th>
@@ -24,10 +29,21 @@
                         <tr>
                             <td>{{ $colaborator->name }}</td>
                             <td>{{ $colaborator->email }}</td>
-                            <td>{{ implode(',', json_decode($colaborator->permission)) }}</td>
+                            <td>
+                                @php
+                                    $permissions = json_decode($colaborator->permissions);
+                                    $formattedPermissions = [];
+                                    foreach ($permissions as $key => $value) {
+                                        if ($value) {
+                                            $formattedPermissions[] = $key;
+                                        }
+                                    }
+                                @endphp
+                                {{ implode(', ', $formattedPermissions) }}
+                            </td>
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
-                                    @if ($colaborator->name == 'Administração' || $department->name == 'Recursos Humanos')
+                                    {{-- @if ($colaborator->name == 'Administração' || $department->name == 'Recursos Humanos')
                                         <i class="fa-solid fa-lock"></i>
                                     @else
                                         <a href="{{ route('', ['id' => Crypt::encryptString($colaborator->id)]) }}"
@@ -40,7 +56,7 @@
                                             <i class="fa-regular fa-trash-can me-2"></i>
                                             Deletar
                                         </a>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </td>
                         </tr>

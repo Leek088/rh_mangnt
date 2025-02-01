@@ -24,14 +24,13 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="seelct_department" class="form-label">Departamento</label>
-                            <select class="form-select" name="department" id="department">
+                            <label for="department_id" class="form-label">Departamento</label>
+                            <select class="form-select" name="department_id" id="department_id">
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <p class="mb-3">Perfil: <strong>Recursos Humanos</strong></p>
                     </div>
                 </div>
                 <div class="mt-3">
