@@ -38,11 +38,12 @@ class RhUserController extends Controller
             'department_id' => 'required|exists:departments,id',
         ]);
 
+        $department = Department::where('name', 'Recursos Humanos')->firstOrFail();
+
         $user = new User();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->role = 'rh';
-        $department = Department::where('name', 'Recursos Humanos')->firstOrFail();
         $user->department_id = $department->id;
         $user->permissions = json_encode([
             'create' => true,

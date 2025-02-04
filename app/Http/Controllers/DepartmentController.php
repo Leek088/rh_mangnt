@@ -9,22 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Crypt;
 
-/**
- * Classe DepartmentController
- *
- * Este controlador lida com a gestão de departamentos, incluindo listar, criar, atualizar e excluir departamentos.
- * Ele garante que apenas administradores autorizados possam realizar essas ações.
- *
- * Métodos:
- * - index(): Exibe uma lista de todos os departamentos.
- * - newDepartment(): Mostra o formulário para criar um novo departamento.
- * - storeDepartment(Request $request): Armazena um departamento recém-criado no banco de dados.
- * - editDepartment(string $id): Mostra o formulário para editar um departamento existente.
- * - updateDepartment(Request $request): Atualiza um departamento existente no banco de dados.
- * - deleteDepartment(string $id): Mostra o formulário de confirmação para excluir um departamento.
- * - destroyDepartment(string $id): Exclui um departamento do banco de dados.
- * - authorizeAdmin(): Verifica se o usuário está autorizado como administrador.
- */
 
 class DepartmentController extends Controller
 {
@@ -62,8 +46,11 @@ class DepartmentController extends Controller
     {
         $this->authorizeAdmin();
 
-        $id = Crypt::decryptString($id);
-        $department = Department::findOrFail(intval($id));
+        $id = intval(Crypt::decryptString($id));
+
+        $this->checkDepartment($id);
+
+        $department = Department::findOrFail($id);
 
         return view('department.edit-department', compact('department'));
     }
@@ -73,7 +60,10 @@ class DepartmentController extends Controller
         $this->authorizeAdmin();
 
         $id = Crypt::decryptString($request->id);
-        $department = Department::findOrFail(intval($id));
+
+        $this->checkDepartment($id);
+
+        $department = Department::findOrFail($id);
 
         $validatedData = $request->validate(
             [
@@ -90,8 +80,11 @@ class DepartmentController extends Controller
     {
         $this->authorizeAdmin();
 
-        $id = Crypt::decryptString($id);
-        $department = Department::findOrFail(intval($id));
+        $id = intval(Crypt::decryptString($id));
+
+        $this->checkDepartment($id);
+
+        $department = Department::findOrFail($id);
 
         return view('department.delete-department-confirm', compact('department'));
     }
@@ -100,8 +93,11 @@ class DepartmentController extends Controller
     {
         $this->authorizeAdmin();
 
-        $id = Crypt::decryptString($id);
-        $department = Department::findOrFail(intval($id));
+        $id = intval(Crypt::decryptString($id));
+
+        $this->checkDepartment($id);
+
+        $department = Department::findOrFail($id);
         $department->delete();
 
         return redirect()->route('department.index');
@@ -111,6 +107,15 @@ class DepartmentController extends Controller
     {
         if (!Gate::allows('admin')) {
             abort(403, 'Você não está autorizado a acessar essa página');
+        }
+    }
+
+    public function checkDepartment(int $id): void
+    {
+        $department = Department::findOrFail($id);
+
+        if (in_array($department->name, ['Administração', 'Recursos Humanos'])) {
+            abort(403, 'Não é permitido atualizar, editar ou excluir este departamento');
         }
     }
 }
