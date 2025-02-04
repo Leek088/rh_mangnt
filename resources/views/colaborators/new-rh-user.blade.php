@@ -25,17 +25,31 @@
                         </div>
                         <div class="mb-3">
                             <label for="department_id" class="form-label">Departamento</label>
-                            <select class="form-select" name="department_id" id="department_id">
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="d-flex">
+                                <select disabled class="form-select" name="department_id" id="department_id">
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}"
+                                            {{ $department->name == 'Recursos Humanos' ? 'selected' : '' }}>
+                                            {{ $department->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('department_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                                <div class="m-3">
+                                    <a href="{{ route('department.new-department') }}"
+                                        class="btn btn-outline-primary mt-4">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="mt-3">
-                    <a href="{{ route('rh-user.index') }}" class="btn btn-outline-danger me-3">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Create colaborator</button>
+                <div class="mt-1">
+                    <button type="submit" class="w-50 btn btn-primary">Criar</button>
+                    <a href="{{ route('rh-user.index') }}" class="w-40 btn btn-outline-danger me-3">Cancelar</a>
                 </div>
             </div>
         </form>

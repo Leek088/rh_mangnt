@@ -32,27 +32,25 @@ class RhUserController extends Controller
     {
         $this->authorizeAdmin();
 
-        // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            // 'password' => 'required|min:8',
             'department_id' => 'required|exists:departments,id',
         ]);
 
-        // Create a new user
         $user = new User();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
-        $user->password = bcrypt('password');
         $user->role = 'rh';
-        $user->department_id = $validatedData['department_id'];
+        $department = Department::where('name', 'Recursos Humanos')->firstOrFail();
+        $user->department_id = $department->id;
         $user->permissions = json_encode([
             'create' => true,
             'read' => true,
             'update' => true,
             'delete' => true,
         ]);
+
         $user->save();
 
         return redirect()->route('rh-user.index')->with('success', 'Usuário RH criado com sucesso!');
