@@ -16,7 +16,7 @@ class DepartmentController extends Controller
     {
         $this->authorizeAdmin();
 
-        $departments = Department::orderBy(column: 'id', direction: 'desc')->get();
+        $departments = Department::orderBy('id', 'desc')->get();
         return view('department.departments', compact('departments'));
     }
 
