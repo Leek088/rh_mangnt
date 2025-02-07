@@ -6,7 +6,7 @@
             @csrf
             <div class="container-fluid">
                 <div class="row gap-3">
-                    <div class="col p-4">
+                    <div class="col border border-black p-4">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="name" name="name"
@@ -46,10 +46,76 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col border border-black p-4">
+                        <div class="mb-3">
+                            <label for="Address" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="address" name="address"
+                                value="{{ old('address') }}">
+                            @error('address')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="zip_code" class="form-label">Cep</label>
+                                    <input type="text" class="form-control" id="zip_code" name="zip_code"
+                                        value="{{ old('zip_code') }}">
+                                    @error('zip_code')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">Cidade</label>
+                                    <input type="text" class="form-control" id="city" name="city"
+                                        value="{{ old('city') }}">
+                                    @error('city')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Telefone</label>
+                                    <input type="text" class="form-control" id="phone" name="phone"
+                                        value="{{ old('phone') }}">
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="salary" class="form-label">Salario</label>
+                                    <input type="number" class="form-control" id="salary" name="salary"
+                                        step=".01" placeholder="0,00" value="{{ old('salary') }}">
+                                    @error('salary')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3 m-3">
+                                    <label for="admission_date" class="form-label">Adimissão</label>
+                                    <input type="text" class="form-control" id="admission_date" name="admission_date"
+                                        placeholder="YYYY-mm-dd" value="{{ old('admission_date') }}">
+                                    @error('admission_date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-1">
-                    <button type="submit" class="w-50 btn btn-primary">Criar</button>
-                    <a href="{{ route('rh-user.index') }}" class="w-40 btn btn-outline-danger me-3">Cancelar</a>
+                <div class="mt-1 row justify-content-center">
+                    <div class="col-md-12 d-flex justify-content-between">
+                        <a href="{{ route('rh-user.index') }}" class="btn btn-outline-danger w-50 ms-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary w-50 me-2">Criar</button>
+                    </div>
                 </div>
             </div>
         </form>
