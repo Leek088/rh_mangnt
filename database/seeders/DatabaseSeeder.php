@@ -15,8 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Department::factory()->create();
+        Department::factory()->create([
+            'name' => 'Administração',
+        ]);
+
+        Department::factory()->create([
+            'name' => 'Recursos Humanos',
+        ]);
+
         User::factory()->create();
+
         UserDetail::factory()->create();
     }
 }

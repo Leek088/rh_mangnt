@@ -42,7 +42,6 @@ class RhUserController extends Controller
             'phone' => 'required|string|max:20',
             'salary' => 'required|numeric|min:0',
             'admission_date' => 'required|date',
-
         ]);
 
         $department = Department::where('name', 'Recursos Humanos')->firstOrFail();
@@ -61,14 +60,19 @@ class RhUserController extends Controller
 
         $user->save();
 
-        $user->userDetail()->create([
-            'address' => $validatedData['address'],
-            'zip_code' => $validatedData['zip_code'],
-            'city' => $validatedData['city'],
-            'phone' => $validatedData['phone'],
-            'salary' => $validatedData['salary'],
-            'admission_date' => $validatedData['admission_date'],
-        ]);
+        try {
+            $user->userDetail()->create([
+                'address' => $validatedData['address'],
+                'zip_code' => $validatedData['zip_code'],
+                'city' => $validatedData['city'],
+                'phone' => $validatedData['phone'],
+                'salary' => $validatedData['salary'],
+                'admission_date' => $validatedData['admission_date'],
+            ]);
+        } catch (\Exception $e) {
+            $user->delete();
+            return redirect()->route('rh-user.index')->with('error', 'Erro ao criar detalhes do usuário RH.');
+        }
 
         return redirect()->route('rh-user.index')->with('success', 'Usuário RH criado com sucesso!');
     }

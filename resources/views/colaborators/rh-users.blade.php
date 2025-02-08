@@ -16,6 +16,9 @@
                 <div class="alert alert-success mt-4">
                     {{ session('success') }}
                 </div>
+            @elseif (session('error'))
+                <div class="alert alert-danger mt-4">
+                    {{ session('error') }}
             @endif
             <table class="table w-60" id="table">
                 <thead class="table-dark">

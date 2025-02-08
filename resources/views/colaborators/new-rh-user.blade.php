@@ -1,12 +1,12 @@
 <x-layout-app page-title="Novo usuário RH">
-    <div class="w-40 p-4">
+    <div class="w-40 p-4 mb-5">
         <h3>Novo colaborador do RH</h3>
         <hr>
         <form action="{{ route('rh-user.store-rh-user') }}" method="post">
             @csrf
             <div class="container-fluid">
                 <div class="row gap-3">
-                    <div class="col border border-black p-4">
+                    <div class="col rounded border border-black p-4">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="name" name="name"
@@ -37,16 +37,10 @@
                                 @error('department_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                                <div class="m-3">
-                                    <a href="{{ route('department.new-department') }}"
-                                        class="btn btn-outline-primary mt-4">
-                                        <i class="fas fa-plus"></i>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col border border-black p-4">
+                    <div class="col rounded border border-black p-4">
                         <div class="mb-3">
                             <label for="Address" class="form-label">Endereço</label>
                             <input type="text" class="form-control" id="address" name="address"
@@ -99,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="mb-3 m-3">
+                                <div class="mb-3">
                                     <label for="admission_date" class="form-label">Adimissão</label>
                                     <input type="text" class="form-control" id="admission_date" name="admission_date"
                                         placeholder="YYYY-mm-dd" value="{{ old('admission_date') }}">
@@ -111,11 +105,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-1 row justify-content-center">
-                    <div class="col-md-12 d-flex justify-content-between">
-                        <a href="{{ route('rh-user.index') }}" class="btn btn-outline-danger w-50 ms-2">Cancelar</a>
-                        <button type="submit" class="btn btn-primary w-50 me-2">Criar</button>
-                    </div>
+            </div>
+            <div class="mt-2 row justify-content-center">
+                <div class="col-md-6 d-flex justify-content-between">
+                    <a href="{{ route('rh-user.index') }}" class="btn btn-danger w-50">Cancelar</a>
+                    <button type="submit" class="btn btn-primary w-50 ms-2">Criar</button>
                 </div>
             </div>
         </form>
