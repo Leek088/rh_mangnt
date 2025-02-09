@@ -144,6 +144,35 @@ class RhUserController extends Controller
         return redirect()->route('rh-user.index')->with('success', 'Usuário RH atualizado com sucesso!');
     }
 
+    public function deleteRhUser(string $id): View
+    {
+        $this->authorizeAdmin();
+
+        $id = intval(Crypt::decryptString($id));
+
+        $user = User::findOrFail($id);
+
+        return view('colaborators.delete-rh-user', compact('user'));
+    }
+
+    public function destroyRhUser(Request $request): RedirectResponse
+    {
+        $this->authorizeAdmin();
+
+        $id = intval(Crypt::decryptString($request->id));
+
+        $user = User::findOrFail($id);
+
+        try {
+            $user->userDetail()->delete();
+            $user->delete();
+        } catch (\Exception $e) {
+            return redirect()->route('rh-user.index')->with('error', 'Erro ao deletar usuário RH.');
+        }
+
+        return redirect()->route('rh-user.index')->with('success', 'Usuário RH deletado com sucesso!');
+    }
+
     private function authorizeAdmin(): void
     {
         if (!Gate::allows('admin')) {
