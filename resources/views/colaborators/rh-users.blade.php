@@ -20,7 +20,7 @@
                 <div class="alert alert-danger mt-4">
                     {{ session('error') }}
             @endif
-            <table class="table w-60" id="table">
+            <table class="table" id="table">
                 <thead class="table-dark">
                     <th>Nome</th>
                     <th>E-mail</th>
@@ -46,7 +46,8 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
-                                    <a href="#" class="btn btn-sm btn-outline-info">
+                                    <a href="{{ route('rh-user.edit-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                        class="btn btn-sm btn-outline-info">
                                         <i class="fa-regular fa-pen-to-square me-2"></i>
                                         Editar
                                     </a>

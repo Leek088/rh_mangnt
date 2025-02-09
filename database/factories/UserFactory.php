@@ -24,7 +24,12 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
             'role' => 'admin',
-            'permissions' => json_encode(['admin']),
+            'permissions' => json_encode([
+                'create' => true,
+                'read' => true,
+                'update' => true,
+                'delete' => true,
+            ]),
             'created_at' => now(),
             'updated_at' => now(),
         ];

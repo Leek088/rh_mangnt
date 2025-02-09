@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Department;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -75,6 +76,72 @@ class RhUserController extends Controller
         }
 
         return redirect()->route('rh-user.index')->with('success', 'Usuário RH criado com sucesso!');
+    }
+
+    public function editRhUser(string $id): View
+    {
+        $this->authorizeAdmin();
+
+        $id = intval(Crypt::decryptString($id));
+
+        $user = User::with(['userDetail', 'department'])->findOrFail($id);
+
+        $departments = Department::all();
+
+        $permissions = ['create', 'read', 'update', 'delete'];
+        $user->permissions = json_decode($user->permissions, true);
+
+        return view('colaborators.edit-rh-user', compact('user', 'departments', 'permissions'));
+    }
+
+    public function updateRhUser(Request $request): RedirectResponse
+    {
+        $this->authorizeAdmin();
+
+        $id = intval(Crypt::decryptString($request->id));
+
+        $user = User::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => "required|email|unique:users,email,{$id}|max:255",
+            'address' => 'required|string|max:100',
+            'zip_code' => 'required|string|max:10',
+            'city' => 'required|string|max:50',
+            'phone' => 'required|string|max:20',
+            'salary' => 'required|numeric|min:0',
+            'admission_date' => 'required|date',
+            'permissions' => 'required|array',
+            'permissions.*' => 'boolean',
+        ]);
+
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->permissions = json_encode([
+            'create' => $validatedData['permissions']['create'] ?? false,
+            'read' => $validatedData['permissions']['read'] ?? false,
+            'update' => $validatedData['permissions']['update'] ?? false,
+            'delete' => $validatedData['permissions']['delete'] ?? false,
+        ]);
+        $user->save();
+
+        try {
+            $user->userDetail()->updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'address' => $validatedData['address'],
+                    'zip_code' => $validatedData['zip_code'],
+                    'city' => $validatedData['city'],
+                    'phone' => $validatedData['phone'],
+                    'salary' => $validatedData['salary'],
+                    'admission_date' => $validatedData['admission_date'],
+                ]
+            );
+        } catch (\Exception $e) {
+            return redirect()->route('rh-user.index')->with('error', 'Erro ao atualizar detalhes do usuário RH.');
+        }
+
+        return redirect()->route('rh-user.index')->with('success', 'Usuário RH atualizado com sucesso!');
     }
 
     private function authorizeAdmin(): void
