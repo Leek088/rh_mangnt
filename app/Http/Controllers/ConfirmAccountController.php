@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class ConfirmAccountController extends Controller
 {
@@ -20,6 +19,6 @@ class ConfirmAccountController extends Controller
             abort(403, 'Token invalido!');
         }
 
-        return view('confirm-account', compact('user'));
+        return view('auth.confirm-account', compact('user'));
     }
 }

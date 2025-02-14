@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function (): void {
 });
 
 Route::middleware('guest')->group(function (): void {
-    Route::get('/confirm-account/{token}', [ConfirmAccountController::class, 'confirmAccount'])
-        ->name('confirm-account');
+    Route::controller(ConfirmAccountController::class)->group(function (): void {
+        Route::get('/confirm-account/{token}', 'confirmAccount')->name('confirm-account');
+        Route::post('/confirm-account', 'confirmAccoutSubmit')->name('confirm-account.submit');
+    });
 });
