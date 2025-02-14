@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmAccountEmail;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RhUserController extends Controller
 {
@@ -46,10 +49,12 @@ class RhUserController extends Controller
         ]);
 
         $department = Department::where('name', 'Recursos Humanos')->firstOrFail();
+        $token = Str::random(60);
 
         $user = new User();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
+        $user->confirmation_token = $token;
         $user->role = 'rh';
         $user->department_id = $department->id;
         $user->permissions = json_encode([
@@ -72,8 +77,12 @@ class RhUserController extends Controller
             ]);
         } catch (\Exception $e) {
             $user->delete();
-            return redirect()->route('rh-user.index')->with('error', 'Erro ao criar detalhes do usuário RH.');
+            return redirect()->route('rh-user.index')
+                ->with('error', 'Erro ao criar detalhes do usuário RH.');
         }
+
+        Mail::to($user->email)
+            ->send(new ConfirmAccountEmail(route('confirm-account', ['token' => $token])));
 
         return redirect()->route('rh-user.index')->with('success', 'Usuário RH criado com sucesso!');
     }

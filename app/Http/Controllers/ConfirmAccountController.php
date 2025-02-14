@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ConfirmAccountController extends Controller
 {
-    public function cunfirmAccoount(string $url): void
+    public function confirmAccount(string $token): View
     {
-        echo "Entrou aqui {$url}";
+        $user = User::where('confirmation_token', $token)->firstOrFail();
+
+        if ($user->email_verified_at !== null) {
+            abort(403, 'Esta conta já está confirmada!');
+        }
+
+        if ($user->confirmation_token !== $token) {
+            abort(403, 'Token invalido!');
+        }
+
+        return view('confirm-account', compact('user'));
     }
 }

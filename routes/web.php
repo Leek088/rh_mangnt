@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RhUserController;
@@ -34,4 +35,9 @@ Route::middleware('auth')->group(function (): void {
         Route::get('/rh-users/delete-rh-user/{id}', 'deleteRhUser')->name('rh-user.delete-rh-user');
         Route::get('/rh-users/destroy-rh-user/{id}', 'destroyRhUser')->name('rh-user.destroy-rh-user');
     });
+});
+
+Route::middleware('guest')->group(function (): void {
+    Route::get('/confirm-account/{token}', [ConfirmAccountController::class, 'confirmAccount'])
+        ->name('confirm-account');
 });
