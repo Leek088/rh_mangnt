@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ConfirmAccountController extends Controller
 {
@@ -20,5 +22,33 @@ class ConfirmAccountController extends Controller
         }
 
         return view('auth.confirm-account', compact('user'));
+    }
+
+    public function submitConfirmAccount(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'token' => 'required|string|size:60',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:16',
+                'confirmed',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
+            ],
+        ]);
+
+        $user = User::where('confirmation_token', $request->token)->firstOrFail();
+
+        if ($user->email_verified_at !== null) {
+            return redirect()->route('login')->withErrors(['email' => 'Esta conta já está confirmada!']);
+        }
+
+        $user->password = bcrypt($request->password);
+        $user->email_verified_at = now();
+        $user->confirmation_token = null;
+        $user->save();
+
+        return redirect()->route('login')->with('status', 'Conta confirmada com sucesso!');
     }
 }
