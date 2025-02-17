@@ -27,9 +27,9 @@
                             <button type="submit" class="btn btn-primary px-4">Entrar</button>
                         </div>
                     </form>
-                    @if (session(key: 'status'))
+                    @if (session('status'))
                         <div class="alert alert-success text-center mt-3">
-                            <p>{{ session(key: 'status') }}</p>
+                            <p>{{ session('status') }}</p>
                         </div>
                     @endif
                 </div>

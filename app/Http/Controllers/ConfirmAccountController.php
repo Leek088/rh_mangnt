@@ -24,7 +24,7 @@ class ConfirmAccountController extends Controller
         return view('auth.confirm-account', compact('user'));
     }
 
-    public function submitConfirmAccount(Request $request): RedirectResponse
+    public function submitConfirmAccount(Request $request): RedirectResponse|View
     {
         $request->validate([
             'token' => 'required|string|size:60',
@@ -49,6 +49,6 @@ class ConfirmAccountController extends Controller
         $user->confirmation_token = null;
         $user->save();
 
-        return redirect()->route('login')->with('status', 'Conta confirmada com sucesso!');
+        return view('auth.welcome', compact('user'));
     }
 }

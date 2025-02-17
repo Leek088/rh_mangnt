@@ -21,7 +21,7 @@ class RhUserController extends Controller
 
         $rhColaborators = User::where('role', 'rh')->get();
 
-        return view('colaborators.rh-users', compact('rhColaborators'));
+        return view('rh-colaborators.rh-users', compact('rhColaborators'));
     }
 
     public function newRhUser(): View
@@ -30,7 +30,7 @@ class RhUserController extends Controller
 
         $departments = Department::all();
 
-        return view('colaborators.new-rh-user', compact('departments'));
+        return view('rh-colaborators.new-rh-user', compact('departments'));
     }
 
     public function storeRhUser(Request $request): RedirectResponse
@@ -100,7 +100,7 @@ class RhUserController extends Controller
         $permissions = ['create', 'read', 'update', 'delete'];
         $user->permissions = json_decode($user->permissions, true);
 
-        return view('colaborators.edit-rh-user', compact('user', 'departments', 'permissions'));
+        return view('rh-colaborators.edit-rh-user', compact('user', 'departments', 'permissions'));
     }
 
     public function updateRhUser(Request $request): RedirectResponse
@@ -161,7 +161,7 @@ class RhUserController extends Controller
 
         $user = User::findOrFail($id);
 
-        return view('colaborators.delete-rh-user', compact('user'));
+        return view('rh-colaborators.delete-rh-user', compact('user'));
     }
 
     public function destroyRhUser(Request $request): RedirectResponse
