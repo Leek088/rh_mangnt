@@ -34,7 +34,6 @@ class ConfirmAccountController extends Controller
                 'min:8',
                 'max:16',
                 'confirmed',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
             ],
         ]);
 

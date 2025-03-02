@@ -1,11 +1,7 @@
-<x-layout-app page-title="Colaborators">
-
+<x-layout-app page-title="Colaboradoress">
     <div class="w-100 p-4">
-
-        <h3>All colaborators</h3>
-
+        <h3>Todos colaboradores</h3>
         <hr>
-
         @if ($colaborators->isEmpty())
             <div class="text-center my-5">
                 <p>Nenhum colaborador encontrado.</p>
@@ -51,15 +47,16 @@
                             <td>{{ $colaborator->role }}</td>
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
-                                    <a href="#" class="btn btn-sm btn-outline-info">
+                                    <a href="{{ route('colaborators.show', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                        class="btn btn-sm btn-outline-info">
                                         <i class="fa-regular fa-pen-to-square me-2"></i>
-                                        Editar
+                                        Detalhes
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-outline-danger">
+                                    <a href="{{ route('colaborators.delete', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                        class="btn btn-sm btn-outline-danger">
                                         <i class="fa-regular fa-trash-can me-2"></i>
                                         Deletar
                                     </a>
-                                    {{-- {{ route('rh-user.edit-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }} --}}
                                 </div>
                             </td>
                         </tr>
@@ -67,5 +64,4 @@
                 </tbody>
             </table>
         @endif
-
 </x-layout-app>
