@@ -9,8 +9,7 @@
             </div>
         @else
             <div class="mb-3">
-                <a href="{{ route('rh-user.new-rh-user') }}" class="btn btn-primary">Crie um novo
-                    colaborador</a>
+                <a href="{{ route('colaborators.create') }}" class="btn btn-primary">Criar um colaborador</a>
             </div>
             @if (session('success'))
                 <div class="alert alert-success mt-4">
@@ -46,18 +45,33 @@
                             </td>
                             <td>{{ $colaborator->role }}</td>
                             <td>
-                                <div class="d-flex gap-3 justify-content-end">
-                                    <a href="{{ route('colaborators.show', ['id' => Crypt::encryptString($colaborator->id)]) }}"
-                                        class="btn btn-sm btn-outline-info">
-                                        <i class="fa-regular fa-pen-to-square me-2"></i>
-                                        Detalhes
-                                    </a>
-                                    <a href="{{ route('colaborators.delete', ['id' => Crypt::encryptString($colaborator->id)]) }}"
-                                        class="btn btn-sm btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can me-2"></i>
-                                        Deletar
-                                    </a>
-                                </div>
+                                @if ($colaborator->trashed())
+                                    <div class="d-flex gap-3 justify-content-end">
+                                        <a href="{{ route('colaborators.delete', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                            class="btn btn-sm btn-outline-success">
+                                            <i class="fa-solid fa-trash-can-arrow-up me-2"></i>
+                                            Restaurar
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="d-flex gap-3 justify-content-end">
+                                        <a href="{{ route('colaborators.show', Crypt::encryptString($colaborator->id)) }}"
+                                            class="btn btn-sm btn-outline-info">
+                                            <i class="fa-regular fa-pen-to-square me-2"></i>
+                                            Detalhes
+                                        </a>
+                                        <a href="{{ route('colaborators.edit', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                            class="btn btn-sm btn-outline-warning">
+                                            <i class="fa-regular fa-pen-to-square me-2"></i>
+                                            Editar
+                                        </a>
+                                        <a href="{{ route('colaborators.delete', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                            class="btn btn-sm btn-outline-danger">
+                                            <i class="fa-regular fa-trash-can me-2"></i>
+                                            Deletar
+                                        </a>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -15,6 +15,15 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'email',
+        'permissions',
+        'role',
+        'department_id',
+        'confirmation_token'
+    ];
+
     public function userDetail(): HasOne
     {
         return $this->hasOne(UserDetail::class);

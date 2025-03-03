@@ -39,7 +39,11 @@ Route::middleware('auth')->group(function (): void {
 
     Route::controller(ColaboratorsController::class)->group(function (): void {
         Route::get('/colaborators', 'index')->name('colaborators.index');
+        Route::get('/colaborators/create', 'create')->name('colaborators.create');
+        Route::post('/colaborators/store', 'store')->name('colaborators.store');
         Route::get('/colaborators/{id}', 'show')->name('colaborators.show');
+        Route::get('/colaborators/edit/{id}', 'edit')->name('colaborators.edit');
+        Route::post('/colaborators/update', 'update')->name('colaborators.update');
         Route::get('/colaborators/delete/{id}', 'delete')->name('colaborators.delete');
         Route::get('/colaborators/destroy/{id}', 'destroy')->name('colaborators.destroy');
     });
