@@ -1,4 +1,4 @@
-<x-layout-app page-title="Colaboradoress">
+<x-layout-app page-title="Colaboradores">
     <div class="w-100 p-4">
         <h3>Todos colaboradores</h3>
         <hr>
@@ -47,7 +47,7 @@
                             <td>
                                 @if ($colaborator->trashed())
                                     <div class="d-flex gap-3 justify-content-end">
-                                        <a href="{{ route('colaborators.delete', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                        <a href="{{ route('colaborators.restore', ['id' => Crypt::encryptString($colaborator->id)]) }}"
                                             class="btn btn-sm btn-outline-success">
                                             <i class="fa-solid fa-trash-can-arrow-up me-2"></i>
                                             Restaurar

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Exception;
 
 class RhUserController extends Controller
 {
@@ -19,7 +20,7 @@ class RhUserController extends Controller
     {
         $this->authorizeAdmin();
 
-        $rhColaborators = User::where('role', 'rh')->get();
+        $rhColaborators = User::where('role', 'rh')->withTrashed()->get();
 
         return view('rh-colaborators.rh-users', compact('rhColaborators'));
     }
@@ -75,7 +76,7 @@ class RhUserController extends Controller
                 'salary' => $validatedData['salary'],
                 'admission_date' => $validatedData['admission_date'],
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $user->delete();
             return redirect()->route('rh-user.index')
                 ->with('error', 'Erro ao criar detalhes do usuário RH.');
@@ -146,7 +147,7 @@ class RhUserController extends Controller
                     'admission_date' => $validatedData['admission_date'],
                 ]
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('rh-user.index')->with('error', 'Erro ao atualizar detalhes do usuário RH.');
         }
 
@@ -171,15 +172,21 @@ class RhUserController extends Controller
         $id = intval(Crypt::decryptString($request->id));
 
         $user = User::findOrFail($id);
-
-        try {
-            $user->userDetail()->delete();
-            $user->delete();
-        } catch (\Exception $e) {
-            return redirect()->route('rh-user.index')->with('error', 'Erro ao deletar usuário RH.');
-        }
+        $user->delete();
 
         return redirect()->route('rh-user.index')->with('success', 'Usuário RH deletado com sucesso!');
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        $this->authorizeAdmin();
+
+        $id = intval(Crypt::decryptString($id));
+
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
+
+        return redirect()->route('rh-user.index')->with('success', 'Colaborador restaurado com sucesso.');
     }
 
     private function authorizeAdmin(): void

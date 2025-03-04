@@ -45,18 +45,28 @@
                                 {{ implode(', ', $formattedPermissions) }}
                             </td>
                             <td>
-                                <div class="d-flex gap-3 justify-content-end">
-                                    <a href="{{ route('rh-user.edit-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }}"
-                                        class="btn btn-sm btn-outline-info">
-                                        <i class="fa-regular fa-pen-to-square me-2"></i>
-                                        Editar
-                                    </a>
-                                    <a href="{{ route('rh-user.delete-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }}"
-                                        class="btn btn-sm btn-outline-danger">
-                                        <i class="fa-regular fa-trash-can me-2"></i>
-                                        Deletar
-                                    </a>
-                                </div>
+                                @if ($colaborator->trashed())
+                                    <div class="d-flex gap-3 justify-content-end">
+                                        <a href="{{ route('rh-user.restore-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                            class="btn btn-sm btn-outline-success">
+                                            <i class="fa-solid fa-trash-can-arrow-up me-2"></i>
+                                            Restaurar
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="d-flex gap-3 justify-content-end">
+                                        <a href="{{ route('rh-user.edit-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                            class="btn btn-sm btn-outline-info">
+                                            <i class="fa-regular fa-pen-to-square me-2"></i>
+                                            Editar
+                                        </a>
+                                        <a href="{{ route('rh-user.delete-rh-user', ['id' => Crypt::encryptString($colaborator->id)]) }}"
+                                            class="btn btn-sm btn-outline-danger">
+                                            <i class="fa-regular fa-trash-can me-2"></i>
+                                            Deletar
+                                        </a>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

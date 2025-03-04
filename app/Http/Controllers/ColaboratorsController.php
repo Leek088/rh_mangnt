@@ -22,7 +22,7 @@ class ColaboratorsController extends Controller
 
         $colaborators = Auth::user()->role == 'admin' ? User::withTrashed()->get()
             : $colaborators = User::with('userDetail', 'department')
-                ->where('role', '<>', 'admin')
+                ->whereNotIn('role', ['admin', 'rh'])
                 ->withTrashed()
                 ->get();
 
@@ -75,7 +75,7 @@ class ColaboratorsController extends Controller
         $role = match ($departmentName) {
             'Administração' => 'admin',
             'Recursos Humanos' => 'rh',
-            default => 'User',
+            default => 'colaborador',
         };
 
         $token = Str::random(60);
@@ -201,6 +201,18 @@ class ColaboratorsController extends Controller
         $colaborator->delete();
 
         return redirect()->route('colaborators.index')->with('success', 'Colaborador deletado com sucesso.');
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        $this->authorizeAdminOrRh();
+
+        $id = intval(Crypt::decryptString($id));
+
+        $colaborator = User::withTrashed()->findOrFail($id);
+        $colaborator->restore();
+
+        return redirect()->route('colaborators.index')->with('success', 'Colaborador restaurado com sucesso.');
     }
 
     private function authorizeAdminOrRh(): void

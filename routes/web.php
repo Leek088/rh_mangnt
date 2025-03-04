@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/rh-users/update-rh-user', 'updateRhUser')->name('rh-user.update-rh-user');
         Route::get('/rh-users/delete-rh-user/{id}', 'deleteRhUser')->name('rh-user.delete-rh-user');
         Route::get('/rh-users/destroy-rh-user/{id}', 'destroyRhUser')->name('rh-user.destroy-rh-user');
+        Route::get('/rh-users/restore/{id}', 'restore')->name('rh-user.restore-rh-user');
     });
 
     Route::controller(ColaboratorsController::class)->group(function (): void {
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/colaborators/update', 'update')->name('colaborators.update');
         Route::get('/colaborators/delete/{id}', 'delete')->name('colaborators.delete');
         Route::get('/colaborators/destroy/{id}', 'destroy')->name('colaborators.destroy');
+        Route::get('/colaborators/restore/{id}', 'restore')->name('colaborators.restore');
     });
 });
 
