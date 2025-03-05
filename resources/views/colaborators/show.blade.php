@@ -35,7 +35,9 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('colaborators.index') }}" class="btn btn-outline-dark"><i
-                    class="fas fa-arrow-left me-2"></i>Voltar</a>
+            @if (auth()->user()->role !== 'colaborador')
+                <a href="{{ route('colaborators.index') }}" class="btn btn-outline-dark"><i
+                        class="fas fa-arrow-left me-2"></i>Voltar</a>
+            @endif
         </div>
     </x-layout-app>

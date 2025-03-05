@@ -3,13 +3,18 @@
 use App\Http\Controllers\ColaboratorsController;
 use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RhUserController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::middleware('auth')->group(function (): void {
-    Route::redirect('/', '/home');
-    Route::view('/home', 'home')->name('home');
+
+    Route::controller(HomeController::class)->group(function (): void {
+        Route::get('/', 'home')->name('home');
+        Route::get('/home', 'home');
+    });
 
     Route::controller(ProfileController::class)->group(function (): void {
         Route::get('/user/profile', 'index')->name('user.profile');
