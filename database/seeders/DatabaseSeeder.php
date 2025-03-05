@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use App\Models\User;
+use App\Models\UserDetail;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Department::factory()->create([
+            'name' => 'Administração',
+        ]);
+
+        Department::factory()->create([
+            'name' => 'Recursos Humanos',
+        ]);
+
+        User::factory()->create();
+
+        UserDetail::factory()->create();
     }
 }

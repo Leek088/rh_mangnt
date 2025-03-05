@@ -1,0 +1,21 @@
+<?php
+return [
+    'required' => 'O campo :attribute é obrigatório.',
+    'email' => 'O campo :attribute deve ser um endereço de email válido.',
+    'min.string' => 'O campo :attribute deve ter no mínimo :min caracteres.',
+    'confirmed' => 'O campo :attribute não confere.',
+    'unique' => 'O campo :attribute já existe.',
+    'max.string' => 'O campo :attribute não pode ter mais que :max caracteres.',
+    'numeric' => 'O campo :attribute deve ser um número.',
+    'date' => 'O campo :attribute não é uma data válida.',
+    'boolean' => 'O campo :attribute deve ser verdadeiro ou falso.',
+    'file' => 'O campo :attribute deve ser um arquivo.',
+    'image' => 'O campo :attribute deve ser uma imagem.',
+    'in' => 'O campo :attribute deve ser um dos seguintes valores: :values.',
+    'not_in' => 'O campo :attribute não deve ser um dos seguintes valores: :values.',
+    'integer' => 'O campo :attribute deve ser um inteiro.',
+    'ip' => 'O campo :attribute deve ser um endereço IP válido.',
+    'json' => 'O campo :attribute deve ser uma string JSON válida.',
+    'regex' => 'O formato do campo :attribute é inválido.',
+    'url' => 'O campo :attribute deve ser uma URL válida.',
+];
