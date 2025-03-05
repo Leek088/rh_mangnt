@@ -30,6 +30,7 @@
     <script src="{{ asset(path: 'assets/datatables/jquery.min.js') }}"></script>
     <script src="{{ asset(path: 'assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset(path: 'assets/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset(path: 'assets/js/main.js') }}"></script>
 </body>
 
 </html>

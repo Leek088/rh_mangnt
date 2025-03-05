@@ -14,7 +14,7 @@
                                 <li>{{ $permission }}: <strong>{{ $value ? 'Sim' : 'Não' }}</strong></li>
                             @endforeach
                         </ul>
-                        <p>Departamento: <strong>{{ $colaborator->department->name }}</strong></p>
+                        <p>Departamento: <strong>{{ $colaborator->department->name ?? 'Não associado' }}</strong></p>
                         <p>Ativo?
                             @empty($colaborator->email_verified_at)
                                 <span class="badge bg-danger">Não</span>

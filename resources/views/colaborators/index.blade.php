@@ -41,7 +41,7 @@
                                 @endempty
                             </td>
                             <td>
-                                {{ $colaborator->department->name }}
+                                {{ $colaborator->department->name ?? 'Não associado' }}
                             </td>
                             <td>{{ $colaborator->role }}</td>
                             <td>
